@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Evento(models.Model):
     title = models.CharField(verbose_name='Title', max_length=100)
+    local = models.CharField(verbose_name='Local', max_length=100)
     description = models.TextField(verbose_name='Description', blank=True, null=True)
     date = models.DateTimeField(verbose_name='Event Date')
     date_creation = models.DateTimeField(verbose_name='Creation Date', auto_now=True)
