@@ -1,0 +1,32 @@
+{% extends "model-page.html" %}
+
+{% block content %}
+
+<h2>Novo compromisso</h2>
+
+<form action="submit" method="POST">{% csrf_token %}
+    <br>
+    <label>Título</label>
+    <br>
+    <input type="text" name="titulo" size="25">
+    <br><br>
+    <label>Local</label>
+    <br>
+    <input type="text" name="local" size="25">
+    <br><br>
+    <label>Descrição</label>
+    <br>
+    <textarea name="descricao" rows="5" cols="22"></textarea>
+    <br><br>
+    <label>Data</label>
+    <br>
+    <input type="datetime-local" name="data">
+    <br><br><br>
+    <button type="submit">Salvar</button>
+    <a href="/">
+        <button type="button">Cancelar</button>
+    </a>
+    <br><br><br>
+</form>
+
+{% endblock %}

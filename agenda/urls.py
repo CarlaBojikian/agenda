@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('eventos/<event_title>/', views.show_local),
     path('eventos-list/', views.list_events),
+    path('eventos-list/new/', views.new_event),
+    path('eventos-list/new/submit', views.submit_event),
     path('', RedirectView.as_view(url='/eventos-list/')), # esta é outra maneira de fazer o redirecionamento
     path('login/', views.login_user),
     path('login/submit', views.submit_login),

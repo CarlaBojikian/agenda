@@ -5,6 +5,13 @@
     <h2>Compromissos</h2>
 
     <ul style="font-size: 18px">
+
+
+    <a href="new/">
+        <button type="button">Adicionar compromisso</button>
+        <br/><br/>
+    </a>
+
     {% for evento in eventos %}
         <li>{{ evento.title }} - {{ evento.brazilian_date_format }}</li>
     {% endfor %}
