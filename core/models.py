@@ -21,3 +21,7 @@ class Evento(models.Model):
 
     def brazilian_date_format(self):
         return self.date.strftime('%d/%m/%Y at %H:%M')
+
+
+    def web_date_format(self):
+        return self.date.strftime('%Y-%m-%dT%H:%M')
