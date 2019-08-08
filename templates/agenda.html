@@ -16,6 +16,8 @@
         <li>
             <div style={% if evento.late_alert %}
                             "color:red"
+                        {% elif evento.upcoming_alert %}
+                            "color:yellow"
                             {% endif %}>
                 {{ evento.title }} - {{ evento.brazilian_date_format }}
                 <a href="new/?id={{ evento.id }}">Editar</a>
