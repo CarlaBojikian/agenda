@@ -3,6 +3,8 @@ from core.models import Evento
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from datetime import datetime, timedelta
+from django.http.response import Http404, JsonResponse
 
 
 # Create your views here.
@@ -33,7 +35,9 @@ def submit_login(request):
 @login_required(login_url='/login/')
 def list_events(request):
     user = request.user
-    evento = Evento.objects.filter(user_name=user)
+    actual_date = datetime.now() - timedelta(hours=1)  # timedelta vai subrtrair ou somar dias, horas ou minutos a data referida
+    evento = Evento.objects.filter(user_name=user,
+                                   date__gt=actual_date)  # __gt mostra os eventos atuais e __lt mostra os eventos passados
     data = {'eventos':evento}
     return render(request, 'agenda.html', data)
 
@@ -74,9 +78,14 @@ def submit_event(request):
 @login_required(login_url='/login/')
 def delete_event(request, evento_id):
     usuario = request.user
-    evento = Evento.objects.get(id=evento_id)
+    try:
+        evento = Evento.objects.get(id=evento_id)
+    except Exception:
+        raise Http404
     if usuario == evento.user_name:
         evento.delete()
+    else:
+        raise Http404()
     return redirect('/')
 
 
@@ -87,3 +96,10 @@ def show_local(response, event_title):
 
 def index(request):
     return redirect('/eventos-list/') # esta é uma maneira de fazer o redirecionamento
+
+
+@login_required(login_url='/login/')
+def json_list(request):
+    user = request.user
+    evento = Evento.objects.filter(user_name=user).values('id','title')
+    return JsonResponse(list(evento), safe=False)

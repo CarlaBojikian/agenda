@@ -14,9 +14,13 @@
 
     {% for evento in eventos %}
         <li>
-        {{ evento.title }} - {{ evento.brazilian_date_format }}
-        <a href="new/?id={{ evento.id }}">Editar</a>
-        / <a href="delete/{{ evento.id }}/">Deletar</a>
+            <div style={% if evento.late_alert %}
+                            "color:red"
+                            {% endif %}>
+                {{ evento.title }} - {{ evento.brazilian_date_format }}
+                <a href="new/?id={{ evento.id }}">Editar</a>
+                / <a href="delete/{{ evento.id }}/">Deletar</a>
+            </div>
         </li>
     {% endfor %}
     </ul>

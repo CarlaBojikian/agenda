@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # Create your models here.
 
@@ -25,3 +26,10 @@ class Evento(models.Model):
 
     def web_date_format(self):
         return self.date.strftime('%Y-%m-%dT%H:%M')
+
+
+    def late_alert(self):
+        if self.date < datetime.now():
+            return True
+        else:
+            return False
